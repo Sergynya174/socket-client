@@ -1,0 +1,96 @@
+import React, { useEffect, useState } from "react";
+import io from "socket.io-client";
+import { useLocation, useNavigate } from "react-router-dom";
+import styles from "../styles/Chat.module.css";
+import EmojiPicker from "emoji-picker-react";
+import Messages from "./Messages";
+import icon from "../images/smile.png";
+
+const socket = io.connect("http://localhost:8000");
+
+const Chat = () => {
+  const navigate = useNavigate();
+  const { search } = useLocation();
+  const [params, setParams] = useState(null);
+  const [messageAdmin, setMessageAdmin] = useState([]);
+  const [state, setState] = useState([]);
+  const [message, setMessage] = useState("");
+  const [isOpen, setOpen] = useState(false);
+  const [users, setUsers] = useState(0);
+
+  const onEmojiClick = ({ emoji }) => setMessage(`${message} ${emoji}`);
+  const leaveRoom = () => {
+    socket.emit("leaveRoom", { params });
+    navigate("/");
+  };
+  const handleChange = ({ target: { value } }) => setMessage(value);
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    if (!message) return;
+    socket.emit("sendMessage", { message, params });
+
+    setMessage("");
+  };
+
+  useEffect(() => {
+    const searchParams = Object.fromEntries(new URLSearchParams(search));
+    setParams(searchParams);
+    socket.emit("join", searchParams);
+  }, [search]);
+
+  useEffect(() => {
+    socket.on("message", ({ data }) => {
+      setState((_state) => [..._state, data]);
+    });
+  }, []);
+
+  useEffect(() => {
+    socket.on("room", ({ data: { users } }) => {
+      setUsers(users.length);
+    });
+  });
+
+  return (
+    <>
+      <div className={styles.chatContainer}>
+        <header className={styles.header}>
+          <div className={styles.title}>{params?.room}</div>
+          <div className={styles.users}>{users} users in this room</div>
+          <button className={styles.leave} onClick={leaveRoom}>
+            leave the room
+          </button>
+        </header>
+        <Messages messages={state} name={params?.name} />
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <div className={styles.inputContainer}>
+            <input
+              type="text"
+              name="message"
+              value={message}
+              className={styles.textInput}
+              placeholder="Message..."
+              required
+              autoComplete="off"
+              onChange={handleChange}
+            />
+          </div>
+          <div className={styles.emoji}>
+            <img src={icon} alt="Emaje" onClick={() => setOpen(!isOpen)} />
+            {isOpen && (
+              <div className={styles.emojies}>
+                <EmojiPicker
+                  onEmojiClick={onEmojiClick}
+                  width="100%"
+                  searchDisabled="true"
+                  right="20%"
+                />
+              </div>
+            )}
+          </div>
+        </form>
+      </div>
+    </>
+  );
+};
+
+export default Chat;
