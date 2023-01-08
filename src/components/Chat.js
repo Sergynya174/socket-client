@@ -6,7 +6,7 @@ import EmojiPicker from "emoji-picker-react";
 import Messages from "./Messages";
 import icon from "../images/smile.png";
 
-const socket = io.connect("http://localhost:8000");
+const socket = io.connect("https://onlinechat-ovzz.onrender.com");
 
 const Chat = () => {
   const navigate = useNavigate();
