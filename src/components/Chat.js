@@ -12,7 +12,6 @@ const Chat = () => {
   const navigate = useNavigate();
   const { search } = useLocation();
   const [params, setParams] = useState(null);
-  const [messageAdmin, setMessageAdmin] = useState([]);
   const [state, setState] = useState([]);
   const [message, setMessage] = useState("");
   const [isOpen, setOpen] = useState(false);
