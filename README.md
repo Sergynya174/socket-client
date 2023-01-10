@@ -3,8 +3,8 @@
 ### Описание проекта: 
 Чат в реальном времени для общения! 
 
-![alt text](https://github.com/Sergynya174/socket-client/Screen.png)
-![alt text](https://github.com/Sergynya174/socket-client/Screen1.png)
+![alt text](https://github.com/Sergynya174/socket-client/blob/main/Screen.png?raw=true)
+![alt text](https://github.com/Sergynya174/socket-client/blob/main/Screen1.png?raw=true)
 
 ### Технологии:
 + React.js
