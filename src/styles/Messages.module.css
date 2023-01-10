@@ -6,6 +6,8 @@
 	list-style-type: none;
 	padding: 15px;
 	margin: 0;
+	overflow-y: auto;
+	max-height: 388px;
 }
 
 .left {

@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../styles/Messages.module.css";
 import icon from "../images/icon.png";
+import iconAdmin from "../images/iconAdmin.png";
 
 const Messages = ({ messages, name }) => {
   return (
@@ -14,13 +15,25 @@ const Messages = ({ messages, name }) => {
           ? styles.nameContainerRight
           : styles.nameContainerLeft;
         return (
-          <li className={classNameMessage} key={i}>
-            <div className={classNameUser}>
-              <p className={styles.name}>{name}</p>
-            </div>
-            <img className={classNameLogo} src={icon} alt="Avatar" />
-            <p className={styles.text}>{message}</p>
-          </li>
+          <>
+            {itsMe ? (
+              <li className={classNameMessage}>
+                <div className={classNameUser}>
+                  <p className={styles.name}>{user.name}</p>
+                </div>
+                <img className={classNameLogo} src={icon} alt="Avatar" />
+                <p className={styles.text}>{message}</p>
+              </li>
+            ) : (
+              <li className={classNameMessage}>
+                <div className={classNameUser}>
+                  <p className={styles.name}>{user.name}</p>
+                </div>
+                <img className={classNameLogo} src={iconAdmin} alt="Avatar" />
+                <p className={styles.text}>{message}</p>
+              </li>
+            )}
+          </>
         );
       })}
     </ul>

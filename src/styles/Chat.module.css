@@ -8,7 +8,7 @@
 	max-width: 100%;
 	min-width: 320px;
 	position: relative;
-	margin: auto;
+	margin: 3vh auto 0;
 	min-height: 500px;
 }
 
@@ -59,11 +59,17 @@
 	justify-content: space-around;
 }
 
+.img{
+	width: 100%;
+}
+
 .emoji{
 	display: flex;
 	align-items: center;
 	cursor: pointer;
 	position: relative;
+	width: 20px;
+	background-size: contain;
 }
 
 .emojies{
