@@ -16,7 +16,7 @@ const Messages = ({ messages, name }) => {
           : styles.nameContainerLeft;
         return (
           <>
-            {itsMe ? (
+            {user.name !== "Admin" ? (
               <li className={classNameMessage}>
                 <div className={classNameUser}>
                   <p className={styles.name}>{user.name}</p>
