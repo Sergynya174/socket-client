@@ -14,26 +14,15 @@ const Messages = ({ messages, name }) => {
         const classNameUser = itsMe
           ? styles.nameContainerRight
           : styles.nameContainerLeft;
+        const srcIcon = user.name !== "Admin" ? icon : iconAdmin;
         return (
-          <>
-            {user.name !== "Admin" ? (
-              <li className={classNameMessage}>
-                <div className={classNameUser}>
-                  <p className={styles.name}>{user.name}</p>
-                </div>
-                <img className={classNameLogo} src={icon} alt="Avatar" />
-                <p className={styles.text}>{message}</p>
-              </li>
-            ) : (
-              <li className={classNameMessage}>
-                <div className={classNameUser}>
-                  <p className={styles.name}>{user.name}</p>
-                </div>
-                <img className={classNameLogo} src={iconAdmin} alt="Avatar" />
-                <p className={styles.text}>{message}</p>
-              </li>
-            )}
-          </>
+          <li className={classNameMessage} key={i}>
+            <div className={classNameUser}>
+              <p className={styles.name}>{user.name}</p>
+            </div>
+            <img className={classNameLogo} src={srcIcon} alt="Avatar" />
+            <p className={styles.text}>{message}</p>
+          </li>
         );
       })}
     </ul>

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "../styles/Chat.module.css";
+import useChatScroll from "../utils/castomHooks/useChatScroll";
 import EmojiPicker from "emoji-picker-react";
 import Messages from "./Messages";
-import icon from "../images/smile.png";
 
 const socket = io.connect("https://onlinechat-ovzz.onrender.com");
 
@@ -16,6 +16,7 @@ const Chat = () => {
   const [message, setMessage] = useState("");
   const [isOpen, setOpen] = useState(false);
   const [users, setUsers] = useState(0);
+  const ref = useChatScroll(state);
 
   const onEmojiClick = ({ emoji }) => setMessage(`${message} ${emoji}`);
   const leaveRoom = () => {
@@ -59,7 +60,9 @@ const Chat = () => {
             leave the room
           </button>
         </header>
-        <Messages messages={state} name={params?.name} />
+        <div className={styles.containerMessages} ref={ref}>
+          <Messages messages={state} name={params?.name} />
+        </div>
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.inputContainer}>
             <input
@@ -74,12 +77,7 @@ const Chat = () => {
             />
           </div>
           <div className={styles.emoji}>
-            <img
-              className={styles.img}
-              src={icon}
-              alt="Emaje"
-              onClick={() => setOpen(!isOpen)}
-            />
+            <button className={styles.img} onClick={() => setOpen(!isOpen)} />
             {isOpen && (
               <div className={styles.emojies}>
                 <EmojiPicker
@@ -90,6 +88,7 @@ const Chat = () => {
                 />
               </div>
             )}
+            {message ? <button className={styles.button} /> : ""}
           </div>
         </form>
       </div>
