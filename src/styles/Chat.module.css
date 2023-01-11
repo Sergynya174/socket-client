@@ -100,14 +100,6 @@ body {
 .img{
 	width: 20px;
 	height: 20px;
-	background-image: url('../images/smile.png');
-	background-repeat: no-repeat;
-	background-size: contain;
-	cursor: pointer;
-	border: none;
-	border-radius: 50%;
-	background-color: transparent;
-	padding: 0;
 }
 
 .emoji{

@@ -5,6 +5,7 @@ import styles from "../styles/Chat.module.css";
 import useChatScroll from "../utils/castomHooks/useChatScroll";
 import EmojiPicker from "emoji-picker-react";
 import Messages from "./Messages";
+import icon from "../images/smile.png";
 
 const socket = io.connect("https://onlinechat-ovzz.onrender.com");
 
@@ -48,7 +49,7 @@ const Chat = () => {
     socket.on("room", ({ data: { users } }) => {
       setUsers(users.length);
     });
-  });
+  }, []);
 
   return (
     <>
@@ -77,7 +78,12 @@ const Chat = () => {
             />
           </div>
           <div className={styles.emoji}>
-            <button className={styles.img} onClick={() => setOpen(!isOpen)} />
+            <img
+              src={icon}
+              alt="Смайлики"
+              className={styles.img}
+              onClick={() => setOpen(!isOpen)}
+            />
             {isOpen && (
               <div className={styles.emojies}>
                 <EmojiPicker
@@ -88,7 +94,7 @@ const Chat = () => {
                 />
               </div>
             )}
-            {/*{message ? <button className={styles.button} /> : ""}*/}
+            {message ? <button className={styles.button} /> : ""}
           </div>
         </form>
       </div>
