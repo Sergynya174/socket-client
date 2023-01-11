@@ -88,7 +88,7 @@ const Chat = () => {
                 />
               </div>
             )}
-            {message ? <button className={styles.button} /> : ""}
+            {/*{message ? <button className={styles.button} /> : ""}*/}
           </div>
         </form>
       </div>
